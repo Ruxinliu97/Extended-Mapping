@@ -1,0 +1,41 @@
+---
+title: "Extended Mapping"
+author: "Ruxin Liu"
+date: "11/9/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+# Read in the data 
+funding <- read.csv("PublicAssistanceFundedProjectsDetails.csv")
+```
+
+```{r}
+# Select the data related to Hurricane
+funding <- funding %>% 
+  filter(incidentType == "Hurricane")
+```
+
+```{r}
+library(tidyverse)
+funding <- funding %<>% separate(declarationDate, c("year", "month", "day"), sep = "-")
+```
+
+```{r}
+funding$year <- as.integer(funding$year)
+```
+
+```{r}
+funding <- funding %<>% 
+  filter(year >= 2009 & year <= 2018)
+```
+
+
