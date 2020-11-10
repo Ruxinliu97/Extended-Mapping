@@ -9,6 +9,9 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Date Preparation
+
+
 ```{r}
 library(dplyr)
 ```
@@ -25,17 +28,74 @@ funding <- funding %>%
 ```
 
 ```{r}
+# Separate the date to get year information
 library(tidyverse)
-funding <- funding %<>% separate(declarationDate, c("year", "month", "day"), sep = "-")
-```
-
-```{r}
+funding <- funding %>% 
+  separate(declarationDate, c("year", "month", "day"), sep = "-")
+# Change the format from character to integer
 funding$year <- as.integer(funding$year)
 ```
 
 ```{r}
-funding <- funding %<>% 
+# Subset the data from year 2009 to year 2018
+funding <- funding %>% 
   filter(year >= 2009 & year <= 2018)
+# The sub-data funding is stored and uploaded in GitHub Repo
+# Remove some columns 
+funding <- funding %>% 
+  select(-c(day, incidentType, hash, id, lastRefresh, obligatedDate))
 ```
+
+```{r, message = FALSE}
+# Create fips for county 
+library(maps)
+# head(county.fips)
+county_fip <- county.fips %>% 
+  separate(polyname, c("state", "county"), sep = ",")
+```
+
+```{r}
+# Capitalize the state and county name for consistency
+county_fip$state <- toupper(county_fip$state)
+funding$state <- toupper(funding$state)
+county_fip$county <- toupper(county_fip$county)
+funding$county <- toupper(funding$county)
+# Add the fips into our funding data set
+funding <- left_join(funding, county_fip, by = c("county", "state"))
+```
+
+
+```{r}
+# Calculate the total number of projects in each state
+funding_year <- funding %>% 
+  group_by(stateCode, state) %>% 
+  summarize(number = length(stateCode))
+```
+
+```{r, message = FALSE}
+library(plotly)
+# Create hover on the map
+funding_year$hover <- with(funding_year, paste("State:", state,"<br>","Project Number:",number,"<br>")) 
+project_number <- plot_geo(funding_year, locationmode = 'USA-states') 
+project_number <- project_number %>% add_trace(
+  locations = ~stateCode,
+  type = 'choropleth',
+  z = ~number,
+  text = ~hover,
+  colorscale = "Reds"
+)
+# Add title
+project_number <- project_number %>% layout(
+  title = 'Number of Hurricane Project from 2009 - 2018'
+)
+
+project_number
+```
+
+
+
+
+
+
 
 
