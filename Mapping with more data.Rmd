@@ -66,6 +66,27 @@ funding <- left_join(funding, county_fip, by = c("county", "state"))
 
 
 ```{r}
+# Get the longitude and latitude information for each country
+coor_county <- (map_data("county"))
+colnames(coor_county)[5] <- "state"
+colnames(coor_county)[6] <- "county"
+# Capitalize the state and county name for consistency
+coor_county$state <- toupper(coor_county$state)
+coor_county$county <- toupper(coor_county$county)
+```
+
+```{r}
+coor_county <- coor_county %>% 
+  group_by(state, county) %>% 
+  summarise(long = mean(long), lat = mean(lat))
+```
+
+```{r}
+# Add the longitude and latitude information into our funding data 
+funding <- left_join(funding, coor_county, by = c("county", "state"))
+```
+
+```{r}
 # Calculate the total number of projects in each state
 funding_year <- funding %>% 
   group_by(stateCode, state) %>% 
