@@ -1,0 +1,60 @@
+﻿Disaster_Number,Year,State,Statewide_per_capita_impact 
+1866,2009,Alabama,2.04
+1939,2010,Virgin Islands,20.01
+1931,2010,Texas,1.72
+4040,2011,Puerto Rico,NA
+4037,2011,Delaware,2.31
+4036,2011,District of Columbia,3.99
+4032,2011,Maine,1.84
+4034,2011,Maryland,2.92
+4028,2011,Massachusetts,3.83
+4024,2011,Virginia,4.48
+4025,2011,Pennsylvania,2.38
+4020,2011,New York,6.22
+4021,2011,New Jersey ,1.53
+4022,2011,New Jersey ,2.53
+4023,2011,New Jersey ,3.53
+4024,2011,New Jersey ,4.53
+4019,2011,North Carolina,NA
+4017,2011,Puerto Rico ,1.32
+4095,2012,New Hampshire,2.81
+4096,2012,District of Columbia,5.47
+4093,2012,West Virginia,7.71
+4091,2012,Maryland,5.67
+4092,2012,Virginia,1.89
+4097,2012,Massachusetts,4.39
+4089,2012,Rhode Island,5.39
+4085,2012,New York,NA
+4090,2012,Delaware,6.12
+4086,2012,New Jersey,NA
+4087,2012,Connecticut,NA
+4084,2012,Florida,2.44
+4082,2012,Alabama,1.96
+4080,2012,Louisiana,NA
+4081,2012,Mississippi,1
+4098,2013,Ohio,1.54
+4099,2013,Pennsylvania,1.59
+4286,2016,South Carolina,NA
+4291,2016,Virginia,NA
+4285,2016,North Carolina,NA
+4283,2016,Florida,NA
+4284,2016,Georgia,NA
+4280,2016,Florida,1.92
+4350,2017,Mississippi,4.76
+4349,2017,Alabama,3.71
+4346,2017,South Carolina,6.59
+4345,2017,Louisiana,1.83
+4340,2017,Virgin Islands,NA
+4339,2017,Puerto Rico,NA
+4338,2017,Georgia,NA
+4337,2017,Florida,NA
+4336,2017,Puerto Rico,NA
+4335,2017,Virgin Islands ,NA
+4332,2017,Texas,NA
+4401,2018,Virginia,4.29
+4406,2018,Alabama,4.98
+4400,2018,Georgia,NA
+4399,2018,Florida,NA
+4395,2018,Hawaii,6.36
+4394,2018,South Carolina,NA
+4393,2018,North Carolina,NA
