@@ -111,6 +111,49 @@ funding_sum$range <- range_amount
 ```
 
 
+## EDA 
+
+
+  In the table below, the number of hurricanes being declared as disasters in 
+  each year is shown.
+  
+  
+```{r, message = FALSE, warning = FALSE}
+library(kableExtra)
+# Number of hurricanes in each year
+hurr <- funding %>% 
+  group_by(year) %>% 
+  summarize(number = length(unique(disasterNumber)))
+kable(hurr)
+```
+
+```{r, messagec = FALSE, warning = FALSE}
+damage <- funding %>% 
+  group_by(damageCategory, year) %>% 
+  summarize(number = length(damageCategory))
+```
+
+  In the plot below, we explored the number of projects due to different damage categories 
+  from year 2009 ro year 2018. And it is cler that the distribution is quite different.
+  
+```{r}
+ggplot(damage) +
+      geom_col(aes(x = damageCategory, y = number, fill = factor(year))) +
+      ggtitle("Number of Projects for Different Damage Category") +
+      labs(x = "Damage Category", y = "Number of Projects", fill = "Year") + 
+      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+obligate <- funding %>% 
+  group_by(state, disasterNumber, year) %>% 
+  summarize(aaverage_federal_share_obligated = mean(federalShareObligated), 
+            average_total_obligated = mean(totalObligated))
+```
+
+
+
 ## Mapping with ggplot
 
   The project amount variable is the estimated total cost of the Public Assistance 
@@ -193,11 +236,8 @@ assistance <- read.csv("FEMA.csv")
 ggplot(data = assistance, aes(Year, Statewide_per_capita_impact))+
   geom_point(aes(color = State), alpha=0.5)+
   labs(title = "Year vs Per Capita Assistance", 
-       y = "Statewide per capita impact ($)", x = "Year")+
-  theme(plot.title = element_text(size = 20),
-        axis.text = element_text(size =  14),
-        axis.title.x = element_text(size = 16),
-        axis.title.y = element_text(size = 16))
+       y = "Statewide per capita impact ($)", x = "Year") +
+  theme(plot.title = element_text(hjust = 0.5)) 
 ```
 
 ## Preparation for Shiny app
@@ -266,7 +306,8 @@ Mapping_table_total <- bind_rows(Mapping_tables_2009, Mapping_tables_2010,
   Florida, 2020.
 5. FEMA: https://www.fema.gov/openfema-data-page/public-assistance-funded-projects-details-v1
 6. FEMA: https://www.fema.gov/disasters/disaster-declarations?field_dv2_state_territory_tribal_value=All&field_year_value=All&field_dv2_declaration_type_value=All&field_dv2_incident_type_target_id_selective=49124
-
+7. Hao Zhu (2019). kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. R package version
+  1.1.0. https://CRAN.R-project.org/package=kableExtra
 
 
 
